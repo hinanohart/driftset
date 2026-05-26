@@ -1,0 +1,48 @@
+{
+  "dataset": {
+    "doi": "10.5281/zenodo.18669539",
+    "file": "Data_S6_benchmark_dataset_for_predictive_performance.csv",
+    "url": "https://zenodo.org/api/records/18669539/files/Data_S6_benchmark_dataset_for_predictive_performance.csv/content",
+    "license": "CC-BY-4.0",
+    "sha256": "6d603067fd4a278c2dd82a232da91ede933567916f2101e7ed438a5f2f86be7a",
+    "prediction_column": "Predicted_affinity_value",
+    "truth_column": "pChEMBL_value_median",
+    "n_rows_used": 9218
+  },
+  "shift": {
+    "kind": "covariate shift on Boltz-2 Confidence_score (test biased low)",
+    "strength": 1.5,
+    "seed": 20260527,
+    "n_calibration": 4836,
+    "n_test": 4382,
+    "mmd_shift_score": 0.07961818521018138,
+    "effective_calibration_n": 674.5350119837962,
+    "weight_source": "domain-classifier density ratio (ClassifierRatioEstimator)"
+  },
+  "results": [
+    {
+      "confidence": 0.8,
+      "vanilla_coverage": 0.782519397535372,
+      "weighted_coverage": 0.812186216339571,
+      "vanilla_median_width": 2.971847848892212,
+      "weighted_median_width": 3.1568145561218266,
+      "weighted_finite_fraction": 0.9924691921497033
+    },
+    {
+      "confidence": 0.9,
+      "vanilla_coverage": 0.8833865814696485,
+      "weighted_coverage": 0.9151072569602922,
+      "vanilla_median_width": 3.8270917606353763,
+      "weighted_median_width": 4.208609294891357,
+      "weighted_finite_fraction": 0.9888178913738019
+    },
+    {
+      "confidence": 0.95,
+      "vanilla_coverage": 0.9329073482428115,
+      "weighted_coverage": 0.9641716111364673,
+      "vanilla_median_width": 4.642893404960632,
+      "weighted_median_width": 5.257877922058106,
+      "weighted_finite_fraction": 0.9876768598813327
+    }
+  ]
+}

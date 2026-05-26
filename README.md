@@ -77,7 +77,30 @@ every level; the Gaussian-assumption baseline is close but under-covers in the
 upper tail (0.942 vs the 0.95 target), because the affinity residuals are
 slightly heavier-tailed than Gaussian. The gap here is modest — the larger
 payoff appears under distribution shift, where the naive split itself degrades
-(see the shift layer).
+(next section).
+
+### Coverage report card — under covariate shift
+
+We induce a covariate shift by biasing the test set toward **low-confidence**
+Boltz-2 compounds (which carry larger errors), detected as a shift score
+(squared MMD) of 0.080. Vanilla split conformal then under-covers; covariate-shift
+weighting with domain-classifier importance weights restores coverage toward the
+target. Reproduced by `scripts/run_shift_coverage.py` →
+[`reports/shift_coverage.json`](reports/shift_coverage.json) (n_cal = 4836,
+n_test = 4382, effective n ≈ 675).
+
+| Target | Vanilla (shifted) | Weighted | Vanilla width | Weighted width |
+|---|---|---|---|---|
+| 0.80 | 0.7825 | 0.8122 | 2.97 | 3.16 |
+| 0.90 | 0.8834 | 0.9151 | 3.83 | 4.21 |
+| 0.95 | 0.9329 | 0.9642 | 4.64 | 5.26 |
+
+Honesty notes: weighting trades calibration bias for variance, so with skewed
+estimated weights a small fraction of intervals (~1%) hit maximum size; widths
+above are medians over finite intervals and ~99% are finite. The recovery is
+real but bounded by how well the domain classifier estimates the density ratio —
+driftset measures this rather than assuming it. A controlled synthetic case with
+a *known* ratio (in the test suite) recovers coverage from 0.63 to 0.93.
 
 ## Datasets
 

@@ -115,18 +115,28 @@ def main() -> None:
         "results": results,
     }
     REPORTS_DIR.mkdir(exist_ok=True)
-    (REPORTS_DIR / "shift_coverage.json").write_text(json.dumps(payload, indent=2) + "\n")
+    # allow_nan=False: never serialize the invalid JSON token ``Infinity``; the
+    # widths are already median-of-finite (or None), so this only guards regressions.
+    (REPORTS_DIR / "shift_coverage.json").write_text(
+        json.dumps(payload, indent=2, allow_nan=False) + "\n"
+    )
 
     print(
         f"MMD shift score = {shift_score:.4f}  n_cal={len(cal)} n_test={len(test)} "
         f"n_eff_cal={_effective_sample_size(w_cal):.0f}"
     )
     for r in results:
+        # median width is None when no interval is finite (fully degenerate);
+        # format defensively so the print never crashes in that regime.
+        vw = f"{r['vanilla_median_width']:.2f}" if r["vanilla_median_width"] is not None else "n/a"
+        ww = (
+            f"{r['weighted_median_width']:.2f}" if r["weighted_median_width"] is not None else "n/a"
+        )
         print(
             f"  conf={r['confidence']:.2f}  vanilla={r['vanilla_coverage']:.4f}  "
             f"weighted={r['weighted_coverage']:.4f}  "
             f"finite={r['weighted_finite_fraction']:.3f}  "
-            f"med_width {r['vanilla_median_width']:.2f} -> {r['weighted_median_width']:.2f}"
+            f"med_width {vw} -> {ww}"
         )
 
 

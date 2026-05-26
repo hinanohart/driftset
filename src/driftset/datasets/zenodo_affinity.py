@@ -72,7 +72,11 @@ def download(cache_dir: Path | None = None, *, verify_sha: bool = True) -> Path:
         # explicit scheme guard rules out file:// / ftp:// before the fetch.
         if not FILE_URL.startswith("https://"):
             raise ValueError(f"refusing non-https download URL: {FILE_URL!r}")
-        urllib.request.urlretrieve(FILE_URL, target)  # nosemgrep  # noqa: S310  # pragma: no cover
+        # Fetch into a temp sibling then atomically rename, so an interrupted
+        # download never leaves a corrupt file occupying the cached path.
+        tmp = target.with_name(target.name + ".part")  # pragma: no cover
+        urllib.request.urlretrieve(FILE_URL, tmp)  # nosemgrep  # noqa: S310  # pragma: no cover
+        tmp.replace(target)  # pragma: no cover
     if verify_sha:
         actual = sha256_of(target)
         if actual != EXPECTED_SHA256:

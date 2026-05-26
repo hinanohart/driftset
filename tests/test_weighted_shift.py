@@ -67,6 +67,20 @@ def test_weighted_validation():
         )
 
 
+def test_weighted_bins_fail_loud():
+    # crepes-weighted 0.1.3's weighted+binned path is upstream-broken; the facade
+    # must refuse it loudly rather than surface a cryptic upstream crash.
+    with pytest.raises(NotImplementedError):
+        WeightedSplitConformalRegressor(0.9).calibrate(
+            np.zeros(5), np.zeros(5), likelihood_ratios=np.ones(5), bins=np.zeros(5)
+        )
+    fitted = WeightedSplitConformalRegressor(0.9).calibrate(
+        np.zeros(5), np.zeros(5), likelihood_ratios=np.ones(5)
+    )
+    with pytest.raises(NotImplementedError):
+        fitted.predict_interval(np.zeros(5), likelihood_ratios=np.ones(5), bins=np.zeros(5))
+
+
 def test_classifier_ratio_estimator_directionally_correct():
     xc, _, _ = _gen(6000, 1, 3, seed=1)
     xt, _, _ = _gen(6000, 3, 1, seed=2)

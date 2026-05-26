@@ -46,12 +46,38 @@ uv sync --extra dev
 
 ## Quickstart
 
-<!-- Quickstart code + the measured coverage table are populated during the
-     build from reports/*.json artifacts; no numbers are hand-written here. -->
+```python
+from driftset.adapters.affinity import boltz2_affinity_adapter
+from driftset.datasets import zenodo_affinity
+from driftset.decision.report import compute_coverage_report
 
-_Results table and runnable quickstart are added in the build steps that
-produce `reports/affinity_coverage.json` and `reports/PROVENANCE.md`. Every
-number in this README is traceable to a committed artifact under `reports/`._
+frame = zenodo_affinity.load()              # downloads + caches public Data S6 (CC-BY-4.0)
+adapter = boltz2_affinity_adapter()
+cal, test = frame.iloc[: len(frame) // 2], frame.iloc[len(frame) // 2 :]
+report = compute_coverage_report(adapter, cal, test, confidence=0.90)
+print(report.empirical_coverage, report.mean_interval_width)
+```
+
+### Coverage report card — Boltz-2 binding affinity
+
+Measured on the public ChEMBL-derived Boltz-2 benchmark (random iid split,
+n_cal = n_test = 4609). Every number is reproduced by
+`scripts/run_affinity_coverage.py` and committed to
+[`reports/affinity_coverage.json`](reports/affinity_coverage.json) /
+[`reports/PROVENANCE.md`](reports/PROVENANCE.md).
+
+| Target coverage | Conformal (calibrated) | Naive Gaussian | Conformal width (pAffinity) |
+|---|---|---|---|
+| 0.80 | 0.7928 | 0.7958 | 2.997 |
+| 0.90 | 0.9028 | 0.8974 | 3.940 |
+| 0.95 | 0.9525 | 0.9419 | 4.927 |
+
+Reading it honestly: distribution-free conformal lands on the nominal target at
+every level; the Gaussian-assumption baseline is close but under-covers in the
+upper tail (0.942 vs the 0.95 target), because the affinity residuals are
+slightly heavier-tailed than Gaussian. The gap here is modest — the larger
+payoff appears under distribution shift, where the naive split itself degrades
+(see the shift layer).
 
 ## Datasets
 
@@ -60,8 +86,11 @@ number in this README is traceable to a committed artifact under `reports/`._
 | Boltz-2 affinity | ChEMBL-derived Boltz-2 benchmark, Zenodo DOI [10.5281/zenodo.18669539](https://doi.org/10.5281/zenodo.18669539) | CC-BY-4.0 | experimental pChEMBL |
 | AlphaFold pLDDT | AlphaFold DB pLDDT + CASP/CAMEO lDDT | CC-BY-4.0 | experimental lDDT |
 
-driftset ships code for both adapters. Calibration datasets are downloaded
-on demand and are **not** vendored into the repository.
+The Boltz-2 affinity adapter is **measured today** (table above). The AlphaFold
+pLDDT adapter is built on the same protocol; whether its coverage card ships
+measured or is deferred to a later release depends on turnkey paired
+pLDDT/lDDT data and is stated explicitly rather than faked. Calibration datasets
+are downloaded on demand and are **not** vendored into the repository.
 
 ## License
 

@@ -1,0 +1,64 @@
+{
+  "dataset": {
+    "doi": "10.5281/zenodo.18669539",
+    "file": "Data_S6_benchmark_dataset_for_predictive_performance.csv",
+    "url": "https://zenodo.org/api/records/18669539/files/Data_S6_benchmark_dataset_for_predictive_performance.csv/content",
+    "license": "CC-BY-4.0",
+    "sha256": "6d603067fd4a278c2dd82a232da91ede933567916f2101e7ed438a5f2f86be7a",
+    "prediction_column": "Predicted_affinity_value",
+    "truth_column": "pChEMBL_value_median",
+    "n_rows_used": 9218
+  },
+  "split": {
+    "seed": 20260527,
+    "cal_fraction": 0.5,
+    "n_calibration": 4609,
+    "n_test": 4609,
+    "scheme": "random iid split (exchangeable; split-conformal guarantee holds)"
+  },
+  "naive_baseline": "parametric Gaussian y_hat +/- z*std(residual_cal), contrasted with distribution-free split conformal on identical calibration data",
+  "reports": [
+    {
+      "adapter": "boltz2-affinity",
+      "confidence": 0.8,
+      "n_calibration": 4609,
+      "n_test": 4609,
+      "target_coverage": 0.8,
+      "empirical_coverage": 0.792796702104578,
+      "naive_coverage": 0.7958342373616837,
+      "coverage_gap": -0.007203297895422067,
+      "naive_coverage_gap": -0.0041657626383163615,
+      "mean_interval_width": 2.9971084094047535,
+      "naive_mean_width": 3.0181388005861955,
+      "shift_score": null
+    },
+    {
+      "adapter": "boltz2-affinity",
+      "confidence": 0.9,
+      "n_calibration": 4609,
+      "n_test": 4609,
+      "target_coverage": 0.9,
+      "empirical_coverage": 0.9027988717726187,
+      "naive_coverage": 0.8973747016706444,
+      "coverage_gap": 0.0027988717726187273,
+      "naive_coverage_gap": -0.002625298329355652,
+      "mean_interval_width": 3.9403485298156733,
+      "naive_mean_width": 3.873739212887256,
+      "shift_score": null
+    },
+    {
+      "adapter": "boltz2-affinity",
+      "confidence": 0.95,
+      "n_calibration": 4609,
+      "n_test": 4609,
+      "target_coverage": 0.95,
+      "empirical_coverage": 0.9524842699067043,
+      "naive_coverage": 0.9418528965068345,
+      "coverage_gap": 0.0024842699067043617,
+      "naive_coverage_gap": -0.008147103493165497,
+      "mean_interval_width": 4.926954407691955,
+      "naive_mean_width": 4.615844971464778,
+      "shift_score": null
+    }
+  ]
+}

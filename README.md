@@ -109,11 +109,40 @@ a *known* ratio (in the test suite) recovers coverage from 0.63 to 0.93.
 | Boltz-2 affinity | ChEMBL-derived Boltz-2 benchmark, Zenodo DOI [10.5281/zenodo.18669539](https://doi.org/10.5281/zenodo.18669539) | CC-BY-4.0 | experimental pChEMBL |
 | AlphaFold pLDDT | AlphaFold DB pLDDT + CASP/CAMEO lDDT | CC-BY-4.0 | experimental lDDT |
 
-The Boltz-2 affinity adapter is **measured today** (table above). The AlphaFold
-pLDDT adapter is built on the same protocol; whether its coverage card ships
-measured or is deferred to a later release depends on turnkey paired
-pLDDT/lDDT data and is stated explicitly rather than faked. Calibration datasets
-are downloaded on demand and are **not** vendored into the repository.
+**What is measured in v0.1:** the Boltz-2 affinity adapter (both tables above),
+end-to-end from public data. The AlphaFold pLDDT adapter ships as **code on the
+same protocol** with a synthetic test, but its *measured* coverage card is
+**deferred to v0.1.1**: no turnkey pre-paired pLDDT/lDDT table is publicly
+distributed (pLDDT lives in structure B-factors; lDDT must be scored against
+experimental references), so shipping a measured pLDDT number now would mean
+fabricating or hand-rolling data. The adapter's docstring gives the exact
+assembly recipe. Calibration datasets are downloaded on demand and are **not**
+vendored into the repository.
+
+## Decisions from intervals
+
+A calibrated interval becomes a risk-aware decision against a threshold (e.g. an
+activity cutoff): items whose whole interval sits on one side are called; items
+whose interval straddles the threshold **abstain**.
+
+```python
+from driftset.decision.api import evaluate_threshold_decisions
+
+# intervals: (n, 2) from a fitted regressor; y_true: held-out labels
+summary = evaluate_threshold_decisions(intervals, y_true, threshold=7.0)
+print(summary["abstain_rate"], summary["decision_error"])
+```
+
+Because the interval carries the coverage guarantee, the error among *decided*
+items is controlled at the chosen confidence; the abstention rate is the cost.
+
+## Status
+
+Pre-alpha (`v0.1.0a1`). Measured: Boltz-2 affinity coverage (iid + induced
+shift). Deferred to v0.1.1: measured AlphaFold pLDDT coverage; the online/ACI
+conformal variant. Known limitation: weighted CP corrects covariate shift only
+and can inflate a small fraction of intervals when estimated weights are skewed
+(reported via the finite fraction, never hidden).
 
 ## License
 

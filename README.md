@@ -107,7 +107,7 @@ a *known* ratio (in the test suite) recovers coverage from 0.63 to 0.93.
 | Adapter | Source | License | Ground truth |
 |---|---|---|---|
 | Boltz-2 affinity | ChEMBL-derived Boltz-2 benchmark, Zenodo DOI [10.5281/zenodo.18669539](https://doi.org/10.5281/zenodo.18669539) | CC-BY-4.0 | experimental pChEMBL |
-| AlphaFold pLDDT | AlphaFold DB pLDDT + CASP/CAMEO lDDT | CC-BY-4.0 | experimental lDDT |
+| AlphaFold pLDDT *(code only — measured card deferred to v0.1.1)* | AlphaFold DB pLDDT + CASP/CAMEO lDDT | CC-BY-4.0 | experimental lDDT |
 
 **What is measured in v0.1:** the Boltz-2 affinity adapter (both tables above),
 end-to-end from public data. The AlphaFold pLDDT adapter ships as **code on the

@@ -58,7 +58,11 @@ def main() -> None:
     }
 
     REPORTS_DIR.mkdir(exist_ok=True)
-    (REPORTS_DIR / "affinity_coverage.json").write_text(json.dumps(payload, indent=2) + "\n")
+    # allow_nan=False: a non-finite width (degenerate tiny-n calibration) must
+    # raise here rather than silently emit the invalid JSON token ``Infinity``.
+    (REPORTS_DIR / "affinity_coverage.json").write_text(
+        json.dumps(payload, indent=2, allow_nan=False) + "\n"
+    )
     _write_provenance(zaff.provenance(frame), split_info, reports)
 
     print("Wrote reports/affinity_coverage.json and reports/PROVENANCE.md")

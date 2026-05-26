@@ -47,6 +47,12 @@ class WeightedSplitConformalRegressor:
         bins: np.ndarray | None = None,
     ) -> WeightedSplitConformalRegressor:
         """Fit on calibration predictions, labels, and per-point weights ``w(x_cal)``."""
+        if bins is not None:
+            raise NotImplementedError(
+                "weighted conformal with Mondrian bins is unsupported in this release "
+                "(upstream crepes-weighted 0.1.3 does not implement the weighted+binned "
+                "path); use bins only with the unweighted SplitConformalRegressor"
+            )
         y_hat_cal = np.asarray(y_hat_cal, dtype=float)
         y_cal = np.asarray(y_cal, dtype=float)
         weights = np.asarray(likelihood_ratios, dtype=float)
@@ -75,6 +81,11 @@ class WeightedSplitConformalRegressor:
         """Return ``(n, 2)`` intervals using test-point weights ``w(x_test)``."""
         if self._engine is None:
             raise RuntimeError("calibrate() must be called before predict_interval()")
+        if bins is not None:
+            raise NotImplementedError(
+                "weighted conformal with Mondrian bins is unsupported in this release "
+                "(upstream crepes-weighted 0.1.3 does not implement the weighted+binned path)"
+            )
         y_hat = np.asarray(y_hat, dtype=float)
         weights = np.asarray(likelihood_ratios, dtype=float)
         if y_hat.shape != weights.shape:

@@ -1,0 +1,34 @@
+# Internal build-orchestration state (not part of the package)
+.driftset-progress.json
+
+# Secrets — never commit
+.env
+.env.*
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+
+# Data caches (downloaded calibration datasets are not vendored)
+data_cache/
+*.parquet
+
+# OS / editor
+.DS_Store
+*.swp

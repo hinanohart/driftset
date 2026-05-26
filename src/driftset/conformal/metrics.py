@@ -15,6 +15,11 @@ def _validate(intervals: np.ndarray, y_true: np.ndarray) -> tuple[np.ndarray, np
         raise ValueError(f"intervals {intervals.shape[0]} and y_true {y_true.shape[0]} disagree")
     if intervals.shape[0] == 0:
         raise ValueError("empty intervals")
+    if np.isnan(intervals).any() or np.isnan(y_true).any():
+        raise ValueError(
+            "NaN present in intervals or y_true; clean/drop missing rows before "
+            "computing coverage (a silent 0.0 would understate coverage)"
+        )
     return intervals, y_true
 
 

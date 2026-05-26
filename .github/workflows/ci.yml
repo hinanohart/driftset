@@ -54,7 +54,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Reject over-claiming marketing phrases in README
         run: |
-          if grep -RniE 'fully automatic|cure-all|永続|完全自動' README.md; then
+          if grep -RniE 'permanent|fully automatic|general-purpose|cure-all|永続|完全自動' README.md; then
             echo "::error::Over-claiming phrase found in README.md"
             exit 1
           fi

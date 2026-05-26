@@ -2,9 +2,12 @@
 """Split conformal regression — a thin facade over :class:`crepes.ConformalRegressor`.
 
 driftset does not re-implement the conformal mathematics; ``crepes`` (BSD-3)
-provides the standard, normalized, and Mondrian variants. This facade fixes the
-calibration sign convention (``true - predicted``), validates shapes, and offers
-a small, typed surface that the adapters and reports build on.
+provides the standard, normalized, and Mondrian variants. This facade adopts
+crepes' ``true - predicted`` residual convention, validates shapes and
+non-emptiness, and offers a small, typed surface that the adapters and reports
+build on. Note the *standard* regressor produces symmetric intervals (absolute
+residual quantile), so the residual sign only affects the normalized, Mondrian,
+and weighted variants used later.
 """
 
 from __future__ import annotations

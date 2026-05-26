@@ -143,3 +143,10 @@ def test_calibrate_shape_mismatch_and_empty():
 def test_invalid_confidence_rejected():
     with pytest.raises(ValueError):
         SplitConformalRegressor(confidence=1.5)
+
+
+def test_coverage_metrics_reject_nan():
+    with pytest.raises(ValueError):
+        empirical_coverage(np.array([[0.0, np.nan]]), np.array([0.0]))
+    with pytest.raises(ValueError):
+        empirical_coverage(np.array([[0.0, 1.0]]), np.array([np.nan]))

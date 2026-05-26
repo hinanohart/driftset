@@ -10,7 +10,7 @@ configurations rather than re-implementations.
 from __future__ import annotations
 
 from collections.abc import Callable
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
@@ -50,7 +50,6 @@ class TabularAdapter:
     group_column: str | None = None
     prediction_transform: Transform | None = None
     truth_transform: Transform | None = None
-    _: object = field(default=None, repr=False, compare=False)
 
     def _require(self, frame: pd.DataFrame, column: str) -> None:
         if column not in frame.columns:

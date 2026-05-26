@@ -19,7 +19,7 @@ shift score.
 > **Scope, honestly.** driftset does **not** introduce a new shift-correction
 > method. The conformal machinery is provided by the BSD-3 libraries
 > [`crepes`](https://github.com/henrikbostrom/crepes) and
-> [`crepes-weighted`](https://github.com/jefjonkers/crepes-weighted); driftset
+> [`crepes-weighted`](https://github.com/predict-idlab/crepes-weighted); driftset
 > contributes the adapter protocol, the scientific-FM bindings, the
 > reproducible public-data pipeline, and the measured coverage report card.
 > Weighted conformal prediction corrects **covariate** shift (a change in the

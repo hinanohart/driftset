@@ -60,6 +60,8 @@ def evaluate_threshold_decisions(
 
     The decision error is the fraction of decided items whose called side does
     not match where the ground truth actually falls relative to ``threshold``.
+    Ground truth exactly equal to ``threshold`` (measure zero on a continuous
+    scale) is treated as not-above.
     """
     decision = threshold_decisions(intervals, threshold)
     y_true = np.asarray(y_true, dtype=float)

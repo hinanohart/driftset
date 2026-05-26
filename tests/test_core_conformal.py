@@ -150,3 +150,24 @@ def test_coverage_metrics_reject_nan():
         empirical_coverage(np.array([[0.0, np.nan]]), np.array([0.0]))
     with pytest.raises(ValueError):
         empirical_coverage(np.array([[0.0, 1.0]]), np.array([np.nan]))
+
+
+class _MismatchedAdapter:
+    name = "bad"
+
+    def point_predictions(self, frame):
+        return np.zeros(3)
+
+    def true_values(self, frame):
+        return np.zeros(4)
+
+    def covariate_features(self, frame):
+        return np.zeros((3, 1))
+
+    def group_keys(self, frame):
+        return None
+
+
+def test_residuals_shape_mismatch_raises():
+    with pytest.raises(ValueError):
+        residuals(_MismatchedAdapter(), pd.DataFrame({"x": [1]}))

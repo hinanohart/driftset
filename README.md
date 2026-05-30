@@ -1,4 +1,4 @@
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- SPDX-License-Identifier: MIT -->
 # driftset
 
 **Reproducible, GPU-free conformal coverage harness for scientific foundation models under distribution shift.**
@@ -146,5 +146,5 @@ and can inflate a small fraction of intervals when estimated weights are skewed
 
 ## License
 
-[Apache-2.0](LICENSE). Calibration **data** retains its own upstream license
+[MIT](LICENSE). Calibration **data** retains its own upstream license
 (CC-BY-4.0 / CC-BY-SA where noted); those licenses bind the data, not this code.

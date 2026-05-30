@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """pLDDT adapter (code path) and the threshold Decision API, tested offline."""
 
 from __future__ import annotations

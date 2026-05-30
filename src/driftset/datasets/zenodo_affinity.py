@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Loader for the public ChEMBL-derived Boltz-2 affinity benchmark.
 
 Source: "Supplemental data of ChEMBL-Derived Benchmark Dataset and Computational

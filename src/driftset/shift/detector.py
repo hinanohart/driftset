@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Distribution-shift estimators.
 
 * :class:`ClassifierRatioEstimator` — the primary importance-weight source. A

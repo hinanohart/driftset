@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Split conformal regression — a thin facade over :class:`crepes.ConformalRegressor`.
 
 driftset does not re-implement the conformal mathematics; ``crepes`` (BSD-3)

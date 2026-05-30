@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Moat layer: weighted CP, shift detection, and Mondrian binning.
 
 The headline test builds a *controlled* covariate shift with a known likelihood

@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Helpers to build Mondrian (class-conditional) bins.
 
 crepes performs Mondrian calibration when given a ``bins`` vector; these helpers

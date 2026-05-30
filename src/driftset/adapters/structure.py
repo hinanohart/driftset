@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """AlphaFold pLDDT confidence adapter.
 
 The nonconformity signal is ``|pLDDT/100 - lDDT|``: the model reports a per-residue

@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Nonconformity adapter protocol.
 
 An adapter binds a specific model's tabular output to the arrays the conformal

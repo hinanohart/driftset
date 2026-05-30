@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Coverage metrics computed directly from intervals and ground truth."""
 
 from __future__ import annotations

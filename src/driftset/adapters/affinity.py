@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Boltz-2 binding-affinity adapter.
 
 The nonconformity signal is the affinity residual ``experimental_pChEMBL -

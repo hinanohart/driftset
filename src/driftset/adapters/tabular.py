@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """A column-driven adapter that satisfies :class:`NonconformityAdapter`.
 
 Most scientific-FM calibration tables are flat: one prediction column, one

@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Core conformal correctness on synthetic data with analytically known coverage.
 
 The synthetic generator emits a point prediction plus homoscedastic Gaussian

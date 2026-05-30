@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Risk-aware decisions from calibrated intervals.
 
 Given prediction intervals and a decision threshold (e.g. an activity cutoff on

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Measure coverage under an induced covariate shift on the affinity benchmark.
 
 Usage::

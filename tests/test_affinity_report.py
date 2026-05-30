@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Affinity adapter + coverage report card, tested offline.
 
 These tests never touch the network: they build a small DataFrame with the same

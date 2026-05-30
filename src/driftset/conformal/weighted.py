@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Covariate-shift–weighted split conformal regression.
 
 A thin facade over :class:`crepes_weighted.ConformalRegressor` (BSD-3). Weighted

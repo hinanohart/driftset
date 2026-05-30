@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """driftset — reproducible, GPU-free conformal coverage harness for scientific
 foundation models under distribution shift.
 

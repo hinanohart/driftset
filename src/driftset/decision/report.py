@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """The coverage report card — driftset's headline output.
 
 For a held-out test set it contrasts two intervals built from the *same*

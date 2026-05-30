@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Generate the measured Boltz-2 affinity coverage report card from public data.
 
 Usage::

@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 """Offline tests for the Zenodo affinity loader (no network).
 
 A tiny CSV fixture with the Data S6 column names is placed in a temp cache so

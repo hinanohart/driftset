@@ -3,13 +3,15 @@
 
 **Reproducible, GPU-free conformal coverage harness for scientific foundation models under distribution shift.**
 
-`driftset` answers one practical question: *when a scientific foundation model (e.g. Boltz-2 binding affinity, AlphaFold pLDDT) reports a confidence score, how often is the ground truth actually inside the prediction interval — and what happens to that coverage when the test distribution drifts from the calibration distribution?*
+`driftset` answers one practical question: when a scientific foundation model (e.g. Boltz-2 binding affinity, AlphaFold pLDDT) reports a confidence score, how often is the ground truth actually inside the prediction interval — and what happens to that coverage when the test distribution drifts from the calibration distribution?
 
 It uses split conformal prediction and covariate-shift–weighted conformal prediction over **public, precomputed predictions** (no GPU, no model re-inference required), then prints a **coverage report card**: target vs. empirical coverage, the naive-vs-calibrated gap, mean interval width, and a shift score.
 
 > [!IMPORTANT]
-> **Scope, honestly.** driftset does **not** introduce a new shift-correction method. The conformal machinery is provided by the BSD-3 libraries [`crepes`](https://github.com/henrikbostrom/crepes) and [`crepes-weighted`](https://github.com/predict-idlab/crepes-weighted); driftset contributes the adapter protocol, the scientific-FM bindings, the reproducible public-data pipeline, and the measured coverage report card.
-> Weighted conformal prediction corrects **covariate** shift (a change in the input distribution) only; it does **not** correct **concept** shift (a change in the predictor's error behaviour, e.g. confidently-wrong fold-switchers). driftset flags the latter via a shift score but cannot repair it.
+> **Scope, honestly.**
+>
+> - driftset does **not** introduce a new shift-correction method. The conformal machinery is provided by the BSD-3 libraries [`crepes`](https://github.com/henrikbostrom/crepes) and [`crepes-weighted`](https://github.com/predict-idlab/crepes-weighted); driftset contributes the adapter protocol, the scientific-FM bindings, the reproducible public-data pipeline, and the measured coverage report card.
+> - Weighted conformal prediction corrects **covariate** shift (a change in the input distribution) only; it does **not** correct **concept** shift (a change in the predictor's error behaviour, e.g. confidently-wrong fold-switchers). driftset flags the latter via a shift score but cannot repair it.
 
 ---
 
@@ -83,7 +85,11 @@ Measured on the public ChEMBL-derived Boltz-2 benchmark (random iid split, n_cal
 | 0.90 | 0.9028 | 0.8974 | 3.940 |
 | 0.95 | 0.9525 | 0.9419 | 4.927 |
 
-Reading it honestly: distribution-free conformal lands on the nominal target at every level; the Gaussian-assumption baseline is close but under-covers in the upper tail (0.942 vs the 0.95 target), because the affinity residuals are slightly heavier-tailed than Gaussian. The gap here is modest — the larger payoff appears under distribution shift.
+Reading it honestly:
+
+- Distribution-free conformal lands on the nominal target at every level.
+- The Gaussian-assumption baseline is close but under-covers in the upper tail (0.942 vs the 0.95 target), because the affinity residuals are slightly heavier-tailed than Gaussian.
+- The gap here is modest — the larger payoff appears under distribution shift.
 
 ## Coverage report card — under covariate shift
 
@@ -95,7 +101,11 @@ We induce a covariate shift by biasing the test set toward **low-confidence** Bo
 | 0.90 | 0.8834 | 0.9151 | 3.83 | 4.21 |
 | 0.95 | 0.9329 | 0.9642 | 4.64 | 5.26 |
 
-Honesty notes: weighting trades calibration bias for variance, so with skewed estimated weights a small fraction of intervals (~1%) hit maximum size; widths above are medians over finite intervals and ~99% are finite. The recovery is real but bounded by how well the domain classifier estimates the density ratio — driftset measures this rather than assuming it.
+Honesty notes:
+
+- Weighting trades calibration bias for variance, so with skewed estimated weights a small fraction of intervals (~1%) hit maximum size.
+- Widths above are medians over finite intervals and ~99% are finite.
+- The recovery is real but bounded by how well the domain classifier estimates the density ratio — driftset measures this rather than assuming it.
 
 ## Datasets
 
@@ -104,7 +114,11 @@ Honesty notes: weighting trades calibration bias for variance, so with skewed es
 | Boltz-2 affinity | ChEMBL-derived Boltz-2 benchmark, Zenodo DOI [10.5281/zenodo.18669539](https://doi.org/10.5281/zenodo.18669539) | CC-BY-4.0 | experimental pChEMBL |
 | AlphaFold pLDDT *(code only — measured card deferred to v0.1.1)* | AlphaFold DB pLDDT + CASP/CAMEO lDDT | CC-BY-4.0 | experimental lDDT |
 
-**What is measured in v0.1:** the Boltz-2 affinity adapter (both tables above), end-to-end from public data. The AlphaFold pLDDT adapter ships as **code on the same protocol** with a synthetic test, but its *measured* coverage card is **deferred to v0.1.1**: no turnkey pre-paired pLDDT/lDDT table is publicly distributed, so shipping a measured pLDDT number now would mean fabricating or hand-rolling data. Calibration datasets are downloaded on demand and are **not** vendored into the repository.
+**What is measured in v0.1:** the Boltz-2 affinity adapter (both tables above), end-to-end from public data.
+
+The AlphaFold pLDDT adapter ships as **code on the same protocol** with a synthetic test, but its *measured* coverage card is **deferred to v0.1.1**: no turnkey pre-paired pLDDT/lDDT table is publicly distributed, so shipping a measured pLDDT number now would mean fabricating or hand-rolling data.
+
+Calibration datasets are downloaded on demand and are **not** vendored into the repository.
 
 ## Decisions from intervals
 
@@ -122,7 +136,11 @@ Because the interval carries the coverage guarantee, the error among *decided* i
 
 ## Status
 
-Pre-alpha (`v0.1.0a1`). Measured: Boltz-2 affinity coverage (iid + induced shift). Deferred to v0.1.1: measured AlphaFold pLDDT coverage; the online/ACI conformal variant. Known limitation: weighted CP corrects covariate shift only and can inflate a small fraction of intervals when estimated weights are skewed (reported via the finite fraction, never hidden).
+Pre-alpha (`v0.1.0a1`).
+
+- **Measured:** Boltz-2 affinity coverage (iid + induced shift).
+- **Deferred to v0.1.1:** measured AlphaFold pLDDT coverage; the online/ACI conformal variant.
+- **Known limitation:** weighted CP corrects covariate shift only and can inflate a small fraction of intervals when estimated weights are skewed (reported via the finite fraction, never hidden).
 
 ## License
 

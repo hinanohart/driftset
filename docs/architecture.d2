@@ -1,0 +1,59 @@
+direction: down
+explanation: |md
+  ### driftset
+  **Reproducible, GPU-free conformal coverage harness for scientific foundation models under distribution shift.**
+| {near: top-center}
+
+dataset: "① Public Dataset\nZenodo / AlphaFold DB" {shape: cylinder; style: {fill: "#6366f1"; font-color: "#fff"; stroke: "#4338ca"; bold: true; font-size: 18}}
+adapter: "② Adapter\naffinity / structure / tabular" {style: {fill: "#0ea5e9"; font-color: "#fff"; stroke: "#0369a1"; bold: true; font-size: 18}}
+dataset -> adapter: "② adapt"
+
+splits: "Data Splits" {
+  style: {fill: "#fffbeb"; stroke: "#f59e0b"; font-color: "#92400e"; bold: true; font-size: 16}
+  cal: "③ Calibration Split\ncal_features + y_hat_cal + y_cal"
+  test: "③ Test Split\ntest_features + y_hat_test + y_true"
+  cal.style.fill: "#fef3c7"; cal.style.font-color: "#92400e"
+  test.style.fill: "#fef3c7"; test.style.font-color: "#92400e"
+}
+adapter -> splits.cal: "③ split"
+adapter -> splits.test: "③ split"
+
+conformal: "Conformal Methods" {
+  style: {fill: "#f0fdf4"; stroke: "#10b981"; font-color: "#065f46"; bold: true; font-size: 16}
+  sc: "④ SplitConformalRegressor\ncrepes backend"
+  cre: "④ ClassifierRatioEstimator\ndomain classifier weights"
+  wc: "⑤ WeightedSplitConformalRegressor\ncrepes-weighted backend"
+  mmd: "MMDDiagnostic\nshift score"
+  sc.style.fill: "#dcfce7"; sc.style.font-color: "#065f46"
+  cre.style.fill: "#dcfce7"; cre.style.font-color: "#065f46"
+  wc.style.fill: "#dcfce7"; wc.style.font-color: "#065f46"
+  mmd.style.fill: "#dcfce7"; mmd.style.font-color: "#065f46"
+}
+splits.cal -> conformal.sc: "④ calibrate"
+splits.cal -> conformal.cre: "④ weight"
+conformal.cre -> conformal.wc: "⑤ weight"
+splits.cal -> conformal.mmd: "shift"
+splits.test -> conformal.sc: "④ evaluate"
+splits.test -> conformal.wc: "⑤ evaluate"
+
+reports: "Reports" {
+  style: {fill: "#fdf2f8"; stroke: "#ec4899"; font-color: "#9d174e"; bold: true; font-size: 16}
+  rpt: "⑥ Coverage Report\nvanilla conformal"
+  rpt2: "⑥ Coverage Report\nshift-weighted conformal"
+  rpt.style.fill: "#fdf2f8"; rpt.style.font-color: "#9d174e"
+  rpt2.style.fill: "#fdf2f8"; rpt2.style.font-color: "#9d174e"
+}
+conformal.sc -> reports.rpt: "⑥ report"
+conformal.wc -> reports.rpt2: "⑥ report"
+conformal.mmd -> reports.rpt2: "shift score"
+
+out: "⑦ Report Card\ncoverage + width + shift score" {shape: cylinder; style: {fill: "#fdf2f8"; stroke: "#ec4899"; font-color: "#9d174e"; bold: true}}
+reports.rpt -> out: "⑦ merge"
+reports.rpt2 -> out: "⑦ merge"
+
+legend: "Legend" {
+  near: bottom-center
+  style: {fill: "#f8fafc"; stroke: "#cbd5e1"; font-size: 13}
+  e: "● entry"; c: "● core"; p: "● conformal"; b: "● split"; d: "● output"
+  e.style.font-color: "#4338ca"; c.style.font-color: "#0369a1"; p.style.font-color: "#10b981"; b.style.font-color: "#f59e0b"; d.style.font-color: "#ec4899"
+}

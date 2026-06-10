@@ -17,23 +17,9 @@ It uses split conformal prediction and covariate-shift–weighted conformal pred
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    DS[Public Dataset<br>Zenodo / AlphaFold DB] --> AD[Adapter<br>affinity / structure / tabular]
-    AD --> CAL[Calibration Split<br>cal_features + y_hat_cal + y_cal]
-    AD --> TEST[Test Split<br>test_features + y_hat_test + y_true]
-    CAL --> SC[SplitConformalRegressor<br>crepes backend]
-    CAL --> CRE[ClassifierRatioEstimator<br>domain classifier weights]
-    CRE --> WC[WeightedSplitConformalRegressor<br>crepes-weighted backend]
-    TEST --> SC
-    TEST --> WC
-    SC --> RPT[Coverage Report<br>vanilla conformal]
-    WC --> RPT2[Coverage Report<br>shift-weighted conformal]
-    CAL --> MMD[MMDDiagnostic<br>shift score]
-    MMD --> RPT2
-    RPT --> OUT[Report Card<br>coverage + width + shift score]
-    RPT2 --> OUT
-```
+<div align="center">
+  <img src="docs/architecture.png" alt="driftset architecture" width="840">
+</div>
 
 ---
 
@@ -145,3 +131,4 @@ Pre-alpha (`v0.1.0a1`).
 ## License
 
 [MIT](LICENSE). Calibration **data** retains its own upstream license (CC-BY-4.0 / CC-BY-SA where noted); those licenses bind the data, not this code.
+

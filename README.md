@@ -17,19 +17,19 @@ It uses split conformal prediction and covariate-shift–weighted conformal pred
 
 ```mermaid
 flowchart TD
-    DS[Public Dataset\nZenodo / AlphaFold DB] --> AD[Adapter\naffinity / structure / tabular]
-    AD --> CAL[Calibration Split\ncal_features + y_hat_cal + y_cal]
-    AD --> TEST[Test Split\ntest_features + y_hat_test + y_true]
-    CAL --> SC[SplitConformalRegressor\ncrepes backend]
-    CAL --> CRE[ClassifierRatioEstimator\ndomain classifier weights]
-    CRE --> WC[WeightedSplitConformalRegressor\ncrepes-weighted backend]
+    DS[Public Dataset<br>Zenodo / AlphaFold DB] --> AD[Adapter<br>affinity / structure / tabular]
+    AD --> CAL[Calibration Split<br>cal_features + y_hat_cal + y_cal]
+    AD --> TEST[Test Split<br>test_features + y_hat_test + y_true]
+    CAL --> SC[SplitConformalRegressor<br>crepes backend]
+    CAL --> CRE[ClassifierRatioEstimator<br>domain classifier weights]
+    CRE --> WC[WeightedSplitConformalRegressor<br>crepes-weighted backend]
     TEST --> SC
     TEST --> WC
-    SC --> RPT[Coverage Report\nvanilla conformal]
-    WC --> RPT2[Coverage Report\nshift-weighted conformal]
-    CAL --> MMD[MMDDiagnostic\nshift score]
+    SC --> RPT[Coverage Report<br>vanilla conformal]
+    WC --> RPT2[Coverage Report<br>shift-weighted conformal]
+    CAL --> MMD[MMDDiagnostic<br>shift score]
     MMD --> RPT2
-    RPT --> OUT[Report Card\ncoverage + width + shift score]
+    RPT --> OUT[Report Card<br>coverage + width + shift score]
     RPT2 --> OUT
 ```
 
